@@ -118,16 +118,40 @@ a:hover {
 }
 
 .section-hero {
-    padding: 64px 0 56px;
+    padding: 72px 0 64px;
     border-bottom: 1px solid var(--line);
-    background: linear-gradient(180deg, #ffffff 0%, #fafafa 100%);
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.35) 100%),
+        url("assets/hero.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-inner {
+    display: flex;
+    align-items: flex-end;
+    min-height: 260px;
+}
+
+.hero-copy {
+    max-width: 860px;
+}
+
+.hero-kicker {
+    margin: 0 0 10px;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
 }
 
 .hero-title {
     margin: 0;
-    font-size: 28px;
+    font-size: 30px;
     line-height: 1.35;
     letter-spacing: 0.01em;
+    color: #ffffff;
+    text-shadow: 0 6px 22px rgba(0, 0, 0, 0.25);
 }
 
 .section-head {
@@ -174,6 +198,51 @@ a:hover {
     font-size: 14px;
 }
 
+.member-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 12px;
+}
+
+.member-item {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 14px;
+    align-items: center;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 14px 14px;
+    box-shadow: var(--shadow);
+}
+
+.member-photo {
+    width: 96px;
+    height: 96px;
+    border-radius: 14px;
+    object-fit: cover;
+    border: 1px solid var(--line);
+    background: #f3f4f6;
+}
+
+.member-name {
+    margin: 0;
+    font-size: 16px;
+}
+
+.member-role {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.member-field {
+    margin: 10px 0 0;
+    font-size: 14px;
+}
+
 .news-list {
     margin: 0;
     padding: 0;
@@ -202,8 +271,14 @@ a:hover {
     font-size: 13px;
 }
 
-.news-text {
+.news-link {
     font-size: 14px;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.news-link:hover {
+    text-decoration: underline;
 }
 
 .placeholder {
@@ -269,6 +344,16 @@ a:hover {
 
     .card-grid {
         grid-template-columns: 1fr;
+    }
+
+    .member-item {
+        grid-template-columns: 80px 1fr;
+    }
+
+    .member-photo {
+        width: 80px;
+        height: 80px;
+        border-radius: 12px;
     }
 
     .footer-inner {

@@ -174,6 +174,47 @@ a:hover {
     text-shadow: 0 6px 22px rgba(0, 0, 0, 0.25);
 }
 
+.hero-actions {
+    margin-top: 18px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    font-size: 14px;
+    line-height: 1.2;
+    text-decoration: none;
+}
+
+.btn:hover {
+    text-decoration: none;
+}
+
+.btn-primary {
+    background: #ffffff;
+    color: var(--text);
+    border-color: rgba(255, 255, 255, 0.75);
+}
+
+.btn-primary:hover {
+    filter: brightness(0.98);
+}
+
+.btn-ghost {
+    background: rgba(255, 255, 255, 0.10);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.45);
+}
+
+.btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.16);
+}
+
 .section-head {
     display: flex;
     align-items: baseline;
@@ -216,6 +257,50 @@ a:hover {
 .card-body {
     margin: 10px 0 0;
     font-size: 14px;
+}
+
+.collab-list {
+    margin-top: 10px;
+    display: grid;
+    gap: 12px;
+}
+
+.collab-item {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 12px 12px;
+    background: #ffffff;
+}
+
+.collab-partner {
+    margin: 0;
+    font-size: 14px;
+}
+
+.collab-meta {
+    margin: 6px 0 0;
+    font-size: 13px;
+    color: var(--muted);
+}
+
+.collab-links {
+    margin: 10px 0 0;
+    padding-left: 18px;
+}
+
+.collab-links li {
+    margin: 6px 0;
+}
+
+.collab-links a {
+    font-size: 13px;
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--line);
+}
+
+.collab-links a:hover {
+    border-bottom-color: var(--text);
 }
 
 .member-list {
@@ -339,6 +424,15 @@ a:hover {
     margin-bottom: 0;
 }
 
+.bullet-list {
+    margin: 10px 0 0;
+    padding-left: 18px;
+}
+
+.bullet-list li {
+    margin: 6px 0;
+}
+
 .placeholder {
     border: 1px dashed var(--line);
     border-radius: var(--radius);
@@ -443,5 +537,13 @@ a:hover {
         white-space: normal;
         overflow: visible;
         text-overflow: clip;
+    }
+
+    .hero-actions {
+        gap: 8px;
+    }
+
+    .btn {
+        width: auto;
     }
 }

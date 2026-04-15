@@ -400,6 +400,10 @@ a:hover {
     border-top: none;
 }
 
+.news-item:first-child {
+    border-top: none;
+}
+
 .news-date {
     font-variant-numeric: tabular-nums;
     color: var(--muted);

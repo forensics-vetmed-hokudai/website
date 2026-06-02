@@ -3,20 +3,68 @@
 
   const data = window.DiagnosisData;
   const app = document.querySelector("#app");
+  const SURVEY_VERSION = "mvp-2026-06";
+  const SESSION_ID_KEY = "exoticCafeDiagnosisSessionId";
 
   if (!data || !app) {
     return;
   }
 
+  const createFallbackId = () => {
+    const hex = (length) => {
+      let value = "";
+      const bytes = new Uint8Array(Math.ceil(length / 2));
+
+      if (window.crypto?.getRandomValues) {
+        window.crypto.getRandomValues(bytes);
+      } else {
+        bytes.forEach((_, index) => {
+          bytes[index] = Math.floor(Math.random() * 256);
+        });
+      }
+
+      bytes.forEach((byte) => {
+        value += byte.toString(16).padStart(2, "0");
+      });
+
+      return value.slice(0, length);
+    };
+
+    return `${hex(8)}-${hex(4)}-${hex(4)}-${hex(4)}-${hex(12)}`;
+  };
+
+  const createSessionId = () => {
+    if (window.crypto?.randomUUID) {
+      return window.crypto.randomUUID();
+    }
+
+    return createFallbackId();
+  };
+
+  const getSessionId = () => {
+    try {
+      const saved = window.sessionStorage?.getItem(SESSION_ID_KEY);
+      if (saved) return saved;
+
+      const next = createSessionId();
+      window.sessionStorage?.setItem(SESSION_ID_KEY, next);
+      return next;
+    } catch (error) {
+      return createSessionId();
+    }
+  };
+
   const state = {
     step: "preSurvey",
     nickname: "",
+    sessionId: getSessionId(),
     preSurvey: { cafe: null, touch: null },
     postSurvey: { cafe: null, touch: null },
     currentQuestion: 0,
     answers: [],
     resultId: null,
-    shareUnlocked: false
+    shareUnlocked: false,
+    hasSubmittedAggregate: false
   };
 
   const escapeHtml = (value) =>
@@ -121,10 +169,10 @@
         <legend>${escapeHtml(item.question)}</legend>
         <div class="option-grid">
           ${Object.entries(item.options)
-            .map(([value, label]) =>
-              renderSurveyOption(prefix, key, value, label, selected === value)
-            )
-            .join("")}
+        .map(([value, label]) =>
+          renderSurveyOption(prefix, key, value, label, selected === value)
+        )
+        .join("")}
         </div>
       </fieldset>
     `;
@@ -155,6 +203,7 @@
 
           if (prefix === "post") {
             state.shareUnlocked = Boolean(state.postSurvey.cafe && state.postSurvey.touch);
+            submitAggregateOnce();
             renderResult();
           } else {
             renderPreSurvey();
@@ -171,7 +220,7 @@
         <div class="input-panel">
           <label for="nickname">ニックネーム</label>
           <input id="nickname" type="text" maxlength="20" autocomplete="off" value="${escapeHtml(state.nickname)}" placeholder="未入力なら「あなた」">
-          <p class="small-note">入力したニックネームや回答は、外部送信・保存しません。このブラウザ内の表示だけに使います。</p>
+          <p class="small-note">入力したニックネームは送信・保存されません。このブラウザ内の結果カード表示だけに使用します。</p>
         </div>
         <div class="button-row">
           <button class="secondary-button" type="button" id="back-pre">戻る</button>
@@ -412,6 +461,8 @@
       `;
     }
 
+    submitAggregateOnce();
+
     const beforeCafe = data.survey.cafe.options[state.preSurvey.cafe];
     const afterCafe = data.survey.cafe.options[state.postSurvey.cafe];
     const beforeTouch = data.survey.touch.options[state.preSurvey.touch];
@@ -433,6 +484,35 @@
         </dl>
       </div>
     `;
+  }
+
+  function buildAggregatePayload() {
+    return {
+      sessionId: state.sessionId,
+      answers: state.answers.map((answer) => answer.choice).join(""),
+      resultId: state.resultId || "",
+      preCafe: state.preSurvey.cafe || "",
+      preTouch: state.preSurvey.touch || "",
+      postCafe: state.postSurvey.cafe || "",
+      postTouch: state.postSurvey.touch || "",
+      version: SURVEY_VERSION
+    };
+  }
+
+  function submitAggregateOnce() {
+    if (state.hasSubmittedAggregate) return;
+    if (!state.resultId) return;
+    if (!state.postSurvey.cafe || !state.postSurvey.touch) return;
+    if (state.answers.length !== data.questions.length) return;
+    if (!window.submitDiagnosisAggregate) return;
+
+    const payload = buildAggregatePayload();
+
+    state.hasSubmittedAggregate = true;
+
+    window.submitDiagnosisAggregate(payload).catch((error) => {
+      console.warn("Failed to submit diagnosis aggregate.", error);
+    });
   }
 
   function renderShare(result) {
@@ -516,6 +596,7 @@
     state.answers = [];
     state.resultId = null;
     state.shareUnlocked = false;
+    state.hasSubmittedAggregate = false;
     render();
   }
 

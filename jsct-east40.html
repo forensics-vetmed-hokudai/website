@@ -544,6 +544,96 @@
       font-weight: 600;
     }
 
+
+    /* ========== REGISTRATION ========== */
+    .registration-card {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 220px;
+      gap: 42px;
+      align-items: center;
+      padding: 40px 48px;
+      background: var(--gray-100);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .registration-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: linear-gradient(180deg, var(--gold), var(--green));
+      border-radius: 999px 0 0 999px;
+    }
+
+    .registration-message {
+      margin: 0;
+      color: var(--black);
+      font-size: clamp(1.08rem, 2vw, 1.35rem);
+      font-weight: 700;
+      line-height: 1.9;
+    }
+
+    .registration-message a {
+      color: var(--green-deep);
+      font-weight: 900;
+      text-decoration: underline;
+      text-decoration-color: var(--gold);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 5px;
+    }
+
+    .registration-message a:hover,
+    .registration-message a:focus-visible {
+      color: var(--green);
+      outline: none;
+      text-decoration-thickness: 3px;
+    }
+
+    .registration-qr-wrap {
+      justify-self: end;
+      margin: 0;
+      text-align: center;
+    }
+
+    .registration-qr-link {
+      display: block;
+      padding: 12px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      box-shadow: 0 12px 30px rgba(17, 17, 17, 0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .registration-qr-link:hover,
+    .registration-qr-link:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(17, 17, 17, 0.13);
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    .registration-qr {
+      display: block;
+      width: 190px;
+      height: 190px;
+      max-width: 100%;
+    }
+
+    .registration-qr-caption {
+      display: block;
+      margin-top: 10px;
+      color: var(--gray-500);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
     /* ========== ABSTRACT SUBMISSION ========== */
     .abstract-intro {
       color: var(--gray-700);
@@ -878,6 +968,14 @@
         grid-template-columns: 1fr;
       }
 
+      .registration-card {
+        grid-template-columns: 1fr;
+      }
+
+      .registration-qr-wrap {
+        justify-self: start;
+      }
+
       .pdf-links {
         justify-content: flex-start;
       }
@@ -944,6 +1042,20 @@
         padding: 28px 24px 28px 30px;
       }
 
+      .registration-card {
+        padding: 28px 24px 28px 30px;
+        gap: 28px;
+      }
+
+      .registration-qr-wrap {
+        justify-self: center;
+      }
+
+      .registration-qr {
+        width: 170px;
+        height: 170px;
+      }
+
       .abstract-cards {
         grid-template-columns: 1fr;
       }
@@ -982,6 +1094,12 @@
             <path fill="currentColor" d="M6 2h9l5 5v15H6V2Zm8 1.8V8h4.2L14 3.8ZM8 12v7h10v-7H8Z" />
           </svg>
           新着情報
+        </a>
+        <a class="nav-button accent" href="#registration" target="_blank" rel="noopener">
+          <svg class="pdf-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="currentColor" d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm2 4v2h6V7H9Zm0 4v2h6v-2H9Zm0 4v2h4v-2H9Z" />
+          </svg>
+          参加登録
         </a>
         <a class="nav-button accent" href="#abstract" target="_blank" rel="noopener">
           <svg class="pdf-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -1047,7 +1165,53 @@
       </div>
     </section>
 
-    <!-- 1. NEWS / 新着情報 -->
+    <!-- 1. GREETINGS / 会長挨拶 -->
+    <div class="section-wrapper">
+      <section class="section" id="greetings" aria-labelledby="greetings-title">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">Greetings</span>
+            <h2 id="greetings-title">会長挨拶</h2>
+          </div>
+        </div>
+
+        <div class="greetings-card">
+          <p class="greetings-body">
+            このたび、第40回日本中毒学会東日本地方会を2027年1月23日（土）に北海道大学大学院獣学研究院講堂にて
+            開催させていただくこととなりました。歴史ある本地方会を北海道大学で開催できますことを大変光栄に存じます。<br>
+          </p>
+          <p class="greetings-body">
+            近年、中毒学を取り巻く課題は大きく変化しています。医薬品や化学物質による健康被害に加え、薬物乱用、環境汚染、
+            食品安全、動物や野生生物における中毒事例など、人・動物・環境の健康が複雑に関わる課題が顕在化しています。
+            これらの問題は単一の専門分野のみで解決できるものではなく、
+            医学、薬学、獣医学、法医学、環境科学など多様な分野の連携がこれまで以上に求められています。<br>
+          </p>
+          <p class="greetings-body">
+            そこで本大会では、「One Healthと中毒」をテーマに掲げました。One Healthは、人の健康、動物の健康、
+            環境の健全性を一体として捉える考え方であり、近年の国際的な保健・医療・環境政策において重要な概念となっています。
+            中毒学はまさにこのOne Healthを体現する学問分野の一つであり、人のみならず伴侶動物、産業動物、野生動物、
+            さらには生態系全体への化学物質の影響を理解するうえで重要な役割を担っています。<br>
+          </p>
+          <p class="greetings-body">
+            本大会では、臨床中毒、救急医療、法医学、法獣医学、環境毒性学、分析化学など幅広い分野の研究者・実務家が集い、
+            学際的な視点から議論を深めたいと考えております。また、若手研究者や学生にも積極的に参加いただき、
+            次世代の中毒学を担う人材育成の場となることを期待しております。<br>
+          </p>
+           <p class="greetings-body">
+            北海道大学は札幌市の中心部に位置しながら豊かな自然環境に囲まれたキャンパスを有しております。
+            冬の北海道ではありますが、活発な学術交流とともに札幌ならではの魅力も感じていただければ幸いです。<br>
+            多くの皆様のご参加を心よりお待ち申し上げております。<br>
+          </p>
+          <div class="greetings-sig">
+            <span class="sig-role">第40回日本中毒学会東日本地方会</span>
+            <span class="sig-name">会長　石塚 真由美</span>
+            <span class="sig-affil">北海道大学大学院獣医学研究院 毒性学教室 教授</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 2. NEWS / 新着情報 -->
     <div class="section-wrapper">
       <section class="section" id="news" aria-labelledby="news-title">
         <div class="section-heading">
@@ -1066,32 +1230,32 @@
       </section>
     </div>
 
-    <!-- 2. GREETINGS / 会長挨拶 -->
-    <!-- 許可が出るまで非表示
+    <!-- 3. REGISTRATION / 参加登録 -->
     <div class="section-wrapper">
-      <section class="section" id="greetings" aria-labelledby="greetings-title">
+      <section class="section" id="registration" aria-labelledby="registration-title">
         <div class="section-heading">
           <div>
-            <span class="section-kicker">Greetings</span>
-            <h2 id="greetings-title">会長挨拶</h2>
+            <span class="section-kicker">Registration</span>
+            <h2 id="registration-title">参加登録</h2>
           </div>
         </div>
 
-        <div class="greetings-card">
-          <p class="greetings-body">
-            会長挨拶は準備中です。公開まで今しばらくお待ちください。
+        <div class="registration-card">
+          <p class="registration-message">
+            参加登録は<a href="https://eventpay.jp/event_info?shop_code=5828840580681023&amp;EventCode=P673640075" target="_blank" rel="noopener noreferrer">ここ</a>からお願いいたします。
           </p>
-          <div class="greetings-sig">
-            <span class="sig-role">大会長</span>
-            <span class="sig-name">石塚 真由美</span>
-            <span class="sig-affil">北海道大学大学院 獣医学研究院 毒性学教室 教授</span>
-          </div>
+          <figure class="registration-qr-wrap">
+            <a class="registration-qr-link" href="https://eventpay.jp/event_info?shop_code=5828840580681023&amp;EventCode=P673640075" target="_blank" rel="noopener noreferrer"
+              aria-label="参加登録ページを新しいタブで開く">
+              <img class="registration-qr" src="eventpay_registration_qr.png" alt="参加登録ページのQRコード" width="190" height="190">
+            </a>
+            <figcaption class="registration-qr-caption">QRコードからも参加登録できます</figcaption>
+          </figure>
         </div>
       </section>
     </div>
-    -->
 
-    <!-- 3. ABSTRACT SUBMISSION / 演題募集 -->
+    <!-- 4. ABSTRACT SUBMISSION / 演題募集 -->
     <div class="section-wrapper">
       <section class="section" id="abstract" aria-labelledby="abstract-title">
         <div class="section-heading">
@@ -1105,7 +1269,7 @@
           演題募集要項は準備中です。詳細が決まり次第、本ウェブサイトにてご案内いたします。
         </p>
 
-        <!-- 許可が出るまで非表示 
+        <!-- 許可が出るまで非表示
         <div class="abstract-cards">
           <div class="abstract-card">
             <span class="card-label">募集期間</span>
@@ -1120,49 +1284,49 @@
             <p class="card-value"><span class="pending-badge">準備中</span></p>
           </div>
         </div>
+        -->
       </section>
     </div>
-    -->
 
-        <!-- 4. ACCESS / 会場アクセス -->
-        <div class="section-wrapper">
-          <section class="section" id="access" aria-labelledby="access-title">
-            <div class="section-heading">
-              <div>
-                <span class="section-kicker">Access</span>
-                <h2 id="access-title">会場アクセス</h2>
-              </div>
-            </div>
-
-            <div class="access-body">
-              <div>
-                <div class="venue-info">
-                  <div>
-                    <p class="venue-name">北海道大学獣医学部 講堂</p>
-                    <p class="venue-detail">〒060-0818 北海道札幌市北区北18条西9丁目</p>
-                  </div>
-                  <div class="venue-transport">
-                    <p>地下鉄南北線「北18条駅」より徒歩約5分</p>
-                  </div>
-                </div>
-                <div class="map-link-wrap">
-                  <a class="primary-button" href="pdf/access.pdf" target="_blank" rel="noopener">
-                    <svg class="pdf-icon" viewBox="0 0 24 24" aria-hidden="true">
-                      <path fill="currentColor" d="M6 2h9l5 5v15H6V2Zm8 1.8V8h4.2L14 3.8ZM8 12v7h10v-7H8Z" />
-                    </svg>
-                    会場アクセスPDFを見る
-                  </a>
-                </div>
-              </div>
-
-              <div class="map-container">
-                <iframe class="map-frame" src="https://www.google.com/maps?q=北海道大学獣医学部+講堂&output=embed"
-                  title="北海道大学獣医学部 講堂の地図" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen>
-                </iframe>
-              </div>
-            </div>
-          </section>
+    <!-- 5. ACCESS / 会場アクセス -->
+    <div class="section-wrapper">
+      <section class="section" id="access" aria-labelledby="access-title">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">Access</span>
+            <h2 id="access-title">会場アクセス</h2>
+          </div>
         </div>
+
+        <div class="access-body">
+          <div>
+            <div class="venue-info">
+              <div>
+                <p class="venue-name">北海道大学獣医学部 講堂</p>
+                <p class="venue-detail">〒060-0818 北海道札幌市北区北18条西9丁目</p>
+              </div>
+              <div class="venue-transport">
+                <p>地下鉄南北線「北18条駅」より徒歩約5分</p>
+              </div>
+            </div>
+            <div class="map-link-wrap">
+              <a class="primary-button" href="pdf/access.pdf" target="_blank" rel="noopener">
+                <svg class="pdf-icon" viewBox="0 0 24 24" aria-hidden="true">
+                  <path fill="currentColor" d="M6 2h9l5 5v15H6V2Zm8 1.8V8h4.2L14 3.8ZM8 12v7h10v-7H8Z" />
+                </svg>
+                会場アクセスPDFを見る
+              </a>
+            </div>
+          </div>
+
+          <div class="map-container">
+            <iframe class="map-frame" src="https://www.google.com/maps?q=北海道大学獣医学部+講堂&amp;output=embed"
+              title="北海道大学獣医学部 講堂の地図" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen>
+            </iframe>
+          </div>
+        </div>
+      </section>
+    </div>
 
   </main>
 
